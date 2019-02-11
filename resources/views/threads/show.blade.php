@@ -4,8 +4,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <div class="panel panel-default">
-          <div class="panel-heading">
+        <div class="card card-default">
+          <div class="card-header">
             <div class="level">
               <span class="flex">
                 <a href="{{route('profile',$thread->creator)}}">
@@ -24,37 +24,13 @@
               @endcan
             </div>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             {{$thread->description}}
           </div>
         </div>
         @foreach($replies as $reply)
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="level">
-                <h5 class="flex">
-                  <a href="{{route('profile',$reply->owner)}}">
-                    {{$reply->owner->name}}
-                  </a>
-                  said since
-                  {{$reply->created_at->diffForHumans()}}
-                </h5>
-                <div>
-                  <form method="POST" action="/replies/{{$reply->id.'/favorites'}}">
-                    {{csrf_field()}}
-                    <button type="submit" class="btn btn-primary"
-                            {{$reply->isFavorable()?'disabled':''}}>
-                      {{$reply->favorites_count}} {{str_plural('Favorite',$reply->favorites_count)}}
-                    </button>
-
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="panel-body">
-              {{$reply->body}}
-            </div>
-          </div>
+          <hr>
+          @include('threads.reply')
         @endforeach
         {{ $replies->links() }}
         @if(auth()->check())
@@ -74,8 +50,8 @@
         @endif
       </div>
       <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <p>
               This thread was published {{$thread->created_at->diffForHumans()}} by
               <a href="#">{{$thread->creator->name}}</a>, and currently has

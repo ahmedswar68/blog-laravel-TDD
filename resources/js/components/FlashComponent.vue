@@ -1,5 +1,5 @@
 <template>
-  <div class="alert alert-warning alert-flash">
+  <div class="alert alert-success alert-flash">
     <strong>Success! </strong>{{body}}
   </div>
 </template>

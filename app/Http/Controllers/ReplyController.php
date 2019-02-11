@@ -64,23 +64,29 @@ class ReplyController extends Controller
   }
 
   /**
-   * Update the specified resource in storage.
-   * @param  \Illuminate\Http\Request $request
-   * @param  \App\Reply $reply
-   * @return \Illuminate\Http\Response
+   * @param Request $request
+   * @param Reply $reply
+   * @throws \Illuminate\Auth\Access\AuthorizationException
    */
-  public function update(Request $request, Reply $reply)
+  public function update(Reply $reply)
   {
-    //
+    $this->authorize('update', $reply);
+//    $reply->update(request()->validate(['body' => 'required|spamfree']));
+    $reply->update(['body' => \request('body')]);
   }
 
   /**
-   * Remove the specified resource from storage.
-   * @param  \App\Reply $reply
-   * @return \Illuminate\Http\Response
+   * @param Reply $reply
+   * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+   * @throws \Illuminate\Auth\Access\AuthorizationException
    */
   public function destroy(Reply $reply)
   {
-    //
+    $this->authorize('update', $reply);
+    $reply->delete();
+    if (request()->expectsJson()) {
+      return response(['status' => 'Reply deleted']);
+    }
+    return back();
   }
 }

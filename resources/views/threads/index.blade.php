@@ -5,8 +5,8 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         @forelse($threads as $thread)
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="card card-default">
+            <div class="card-header">
               <div class="level">
                 <h4 class="flex">
                   <a href="{{$thread->path()}}">
@@ -18,10 +18,11 @@
                 </a>
               </div>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               {{$thread->description}}
             </div>
           </div>
+          <hr>
         @empty
           <p>there is no relevant data at this time</p>
         @endforelse
