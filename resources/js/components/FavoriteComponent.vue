@@ -1,17 +1,18 @@
 <template>
-  <button type="submit" :class="classes" @click="toggle">
-    <span class="glyphicon glyphicon-heart"></span>
+  <button type="submit" class="btn btn-default" @click="toggle">
+    <span :class="classes"></span>
     <span v-text="count"></span>
   </button>
 </template>
 
 <script>
   export default {
+    name: 'FavoriteComponent',
     props: ['reply'],
     data() {
       return {
         count: this.reply.favoritesCount,
-        active: this.reply.isFavorited
+        active: this.reply.isFavorable
       }
     },
     computed: {

@@ -10,7 +10,8 @@
             <small>Since {{ $profileUser->created_at->diffForHumans() }}</small>
           </h1>
         </div>
-        @foreach($activities as $date=>$items)
+        {{--        {{dd($activities->toArray())}}--}}
+        @forelse($activities as $date=>$items)
           <h3 class="page-header">
             {{$date}}
           </h3>
@@ -19,7 +20,9 @@
               @include("profiles.activities.{$activity->type}")
             @endif
           @endforeach
-        @endforeach
+        @empty
+          <p>There are no activities for this user yet!</p>
+        @endforelse
 
       </div>
     </div>

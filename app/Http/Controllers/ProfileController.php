@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Activity;
 use App\User;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {

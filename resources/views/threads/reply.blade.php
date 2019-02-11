@@ -9,9 +9,11 @@
           said since
           {{$reply->created_at->diffForHumans()}}
         </h5>
-        <div>
-          <favorite :reply="{{$reply}}"></favorite>
-        </div>
+        @if(Auth::check())
+          <div>
+            <Favorite :reply="{{$reply}}"></Favorite>
+          </div>
+        @endif
       </div>
     </div>
     <div class="card-body">

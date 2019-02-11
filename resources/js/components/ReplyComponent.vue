@@ -1,10 +1,10 @@
 <script>
-  // import Favorite from './FavoriteComponent.vue';
+  import Favorite from './FavoriteComponent.vue';
 
   export default {
     name: "ReplyComponent",
     props: ['attributes'],
-    // components: {Favorite},
+    components: {Favorite},
     data() {
       return {
         editing: false,
