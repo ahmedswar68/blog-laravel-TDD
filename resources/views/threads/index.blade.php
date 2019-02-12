@@ -9,7 +9,7 @@
             <div class="card-header">
               <div class="level">
                 <h4 class="flex">
-                  <a href="{{$thread->path()}}">
+                  <a href="/{{$thread->path()}}">
                     {{$thread->title}}
                   </a>
                 </h4>
