@@ -21,6 +21,7 @@ Route::get('threads/{category}/{thread}', 'ThreadController@show');
 Route::delete('threads/{category}/{thread}', 'ThreadController@destroy');
 Route::post('threads', 'ThreadController@store')->name('threads');
 Route::get('threads/{category}', 'ThreadController@index');
+Route::get('/threads/{category}/{thread}/replies', 'ReplyController@index');
 Route::post('/threads/{category}/{thread}/replies', 'ReplyController@store');
 Route::delete('/replies/{reply}', 'ReplyController@destroy');
 Route::patch('/replies/{reply}', 'ReplyController@update');
