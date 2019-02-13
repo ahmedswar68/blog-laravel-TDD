@@ -1,6 +1,6 @@
 <template>
 
-  <div :id="'reply-'+id" class="panel panel-default">
+  <div :id="'reply-'+id" class="card card-default">
     <div class="card-header">
       <div class="level">
         <h5 class="flex">
@@ -27,15 +27,12 @@
       </div>
       <div v-else v-text="body"></div>
     </div>
-    <!--@can('update',$reply)-->
     <div class="card-footer level" v-if="canUpdate">
       <button class="btn btn-dark btn-xs mr-1" @click="editing=true">Edit</button>
       <button class="btn btn-danger btn-xs mr-1" @click="destroy">Delete</button>
 
     </div>
-    <!--@endcan-->
   </div>
-
 
 </template>
 <script>

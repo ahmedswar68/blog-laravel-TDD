@@ -77,6 +77,7 @@ class ThreadController extends Controller
    */
   public function show($categoryID, Thread $thread)
   {
+//    var_dump($thread->isSubscribedTo);die;
     return view('threads.show', compact('thread'));
   }
 

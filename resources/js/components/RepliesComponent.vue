@@ -2,6 +2,7 @@
   <div>
     <div v-for="(reply,index) in items" :key="reply.id">
       <reply :data="reply" @deleted="remove(index)"></reply>
+      <hr>
     </div>
     <paginator :dataSet="dataSet" @changed="fetch"></paginator>
     <NewReplyComponent @created="add"></NewReplyComponent>
@@ -33,7 +34,8 @@
       },
       refresh({data}) {
         this.dataSet = data;
-        this.items = data.data
+        this.items = data.data;
+        window.scrollTo(0, 0);
       },
       url(page) {
         if (!page) {

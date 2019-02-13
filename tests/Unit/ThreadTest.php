@@ -37,10 +37,31 @@ class ThreadTest extends TestCase
     ]);
     $this->assertCount(1, $this->thread->replies);
   }
+
   /** @test */
   public function a_thread_belongs_to_a_category()
   {
-    $thread=make('App\Thread');
-    $this->assertInstanceOf('App\Category',$thread->category);
+    $thread = make('App\Thread');
+    $this->assertInstanceOf('App\Category', $thread->category);
+  }
+
+  /** @test */
+  function a_thread_can_be_subscribed_to()
+  {
+    $thread = create('App\Thread');
+    $thread->subscribe($userId = 1);
+    $this->assertEquals(
+      1,
+      $thread->subscriptions()->where('user_id', $userId)->count()
+    );
+  }
+
+  /** @test */
+  function a_thread_can_be_unsubscribed_from()
+  {
+    $thread = create('App\Thread');
+    $thread->subscribe($userId = 1);
+    $thread->unsubscribe($userId);
+    $this->assertCount(0, $thread->subscriptions);
   }
 }
