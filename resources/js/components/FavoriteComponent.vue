@@ -1,6 +1,6 @@
 <template>
-  <button type="submit" class="btn btn-default" @click="toggle">
-    <span :class="classes"></span>
+  <button type="submit" :class="classes" @click="toggle">
+    <span class="fa fa-heart"></span>
     <span v-text="count"></span>
   </button>
 </template>
