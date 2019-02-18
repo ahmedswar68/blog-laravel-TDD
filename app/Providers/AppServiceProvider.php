@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Category;
+use Dotenv\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -21,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
       $categories = Category::all();//to be modified;
       $view->with('categories', $categories);
     });
+    \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     Schema::defaultStringLength(191);
   }
 

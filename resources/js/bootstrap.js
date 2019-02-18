@@ -41,3 +41,6 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+window.flash = function (message, level = 'success') {
+  window.events.$emit('flash', {message, level});
+};

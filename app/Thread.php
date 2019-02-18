@@ -41,12 +41,14 @@ class Thread extends Model
   public function addReply($reply)
   {
     $reply = $this->replies()->create($reply);
-    $this->subscriptions
-      ->filter(function ($sub) use ($reply) {
-        return $sub->user_id != $reply->user_id;
-      })->each->notify($reply);
-
+    $this->notifySubscribers($reply);
     return $reply;
+  }
+
+  public function notifySubscribers($reply)
+  {
+    $this->subscriptions
+      ->where('user_id', '!=', $reply->user_id)->each->notify($reply);
   }
 
   public function replies()
@@ -88,5 +90,12 @@ class Thread extends Model
   public function getIsSubscribedToAttribute()
   {
     return $this->subscriptions()->where('user_id', auth()->id())->exists();
+  }
+
+  public function hasUpdatesFor($user = null)
+  {
+    $user = $user ?: auth()->user();
+    $key = $user->visitedThreadCacheKey($this);
+    return $this->updated_at > cache($key);
   }
 }

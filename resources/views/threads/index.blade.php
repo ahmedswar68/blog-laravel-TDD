@@ -3,14 +3,18 @@
 @section('content')
   <div class="container">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-10">
         @forelse($threads as $thread)
           <div class="card card-default">
             <div class="card-header">
               <div class="level">
                 <h4 class="flex">
                   <a href="/{{$thread->path()}}">
-                    {{$thread->title}}
+                    @if(auth()->check()&&$thread->hasUpdatesFor(auth()->user()))
+                      <strong>{{$thread->title}}</strong>
+                    @else
+                      {{$thread->title}}
+                    @endif
                   </a>
                 </h4>
                 <a href="{{$thread->path()}}">
