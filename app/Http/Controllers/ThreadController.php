@@ -36,7 +36,7 @@ class ThreadController extends Controller
     if ($category->exists) {
       $threads->where('category_id', $category->id);
     }
-    return $threads->get();
+    return $threads->paginate(25);
   }
 
   /**
