@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Thread;
 use App\Category;
 use App\Filters\ThreadFilters;
+use App\Trending;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -17,9 +18,10 @@ class ThreadController extends Controller
   /**
    * @param Category $category
    * @param ThreadFilters $filters
+   * @param Trending $trending
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function index(Category $category, ThreadFilters $filters)
+  public function index(Category $category, ThreadFilters $filters, Trending $trending)
   {
 
     $threads = $this->getThreads($category, $filters);
@@ -27,7 +29,10 @@ class ThreadController extends Controller
     if (request()->wantsJson()) {
       return $threads;
     }
-    return view('threads.index', compact('threads'));
+    return view('threads.index', [
+      'threads' => $threads,
+      'trending' => $trending->get()
+    ]);
   }
 
   protected function getThreads(Category $category, ThreadFilters $filters)
@@ -71,15 +76,17 @@ class ThreadController extends Controller
   }
 
   /**
-   * Display the specified resource.
-   * @param  \App\Thread $thread
-   * @return \Illuminate\Http\Response
+   * @param $categoryID
+   * @param Thread $thread
+   * @param Trending $trending
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
-  public function show($categoryID, Thread $thread)
+  public function show($categoryID, Thread $thread, Trending $trending)
   {
     if (auth()->check()) {
       auth()->user()->read($thread);
     }
+    $trending->push($thread);
     return view('threads.show', compact('thread'));
   }
 
