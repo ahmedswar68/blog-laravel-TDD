@@ -39,6 +39,7 @@ $factory->define(App\Thread::class, function (Faker $faker) {
     'category_id' => function () {
       return factory('App\Category')->create()->id;
     },
+    'visits' => 0
   ];
 });
 $factory->define(App\Reply::class, function (Faker $faker) {
