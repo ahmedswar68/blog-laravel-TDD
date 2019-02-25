@@ -73,6 +73,9 @@ class ThreadController extends Controller
       'category_id' => request('category_id'),
       'description' => request('description'),
     ]);
+    if (request()->wantsJson()) {
+      return response($thread, 201);
+    }
     return redirect($thread->path())->with('flash', 'Your Thread has been published Successfully!');
   }
 

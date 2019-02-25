@@ -36,8 +36,9 @@ $factory->define(App\Category::class, function (Faker $faker) {
   ];
 });
 $factory->define(App\Thread::class, function (Faker $faker) {
+  $title = $faker->sentence;
   return [
-    'title' => $faker->sentence,
+    'title' => $title,
     'description' => $faker->paragraph,
     'user_id' => function () {
       return factory('App\User')->create()->id;
@@ -45,7 +46,8 @@ $factory->define(App\Thread::class, function (Faker $faker) {
     'category_id' => function () {
       return factory('App\Category')->create()->id;
     },
-    'visits' => 0
+    'visits' => 0,
+    'slug' => str_slug($title)
   ];
 });
 $factory->define(App\Reply::class, function (Faker $faker) {
