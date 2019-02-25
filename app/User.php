@@ -26,7 +26,16 @@ class User extends Authenticatable
    * @var array
    */
   protected $hidden = [
-    'password', 'remember_token',
+    'password', 'remember_token', 'email',
+  ];
+
+  /**
+   * The attributes that should be cast to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'confirmed' => 'boolean'
   ];
 
   public function getRouteKeyName()
@@ -62,5 +71,15 @@ class User extends Authenticatable
   public function getAvatarPathAttribute($avatar)
   {
     return asset($avatar ?: 'images/avatars/default.png');
+  }
+
+  /**
+   * Mark the user's account as confirmed.
+   */
+  public function confirm()
+  {
+    $this->confirmed = true;
+    $this->confirmation_token = null;
+    $this->save();
   }
 }

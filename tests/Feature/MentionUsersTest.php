@@ -35,6 +35,6 @@ class MentionUsersTest extends TestCase
     create('App\User', ['name' => 'Swar2']);
     create('App\User', ['name' => 'Ahmed']);
     $results = $this->json('GET', '/api/users', ['name' => 'ahmed']);
-    $this->assertCount(2, $results->json());
+    $this->assertCount(1, $results->json());
   }
 }
