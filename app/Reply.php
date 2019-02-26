@@ -17,7 +17,7 @@ class Reply extends Model
    * this accessors to append the model's array form
    * @var array
    */
-  protected $appends = ['favoritesCount', 'isFavorable'];
+  protected $appends = ['favoritesCount', 'isFavorable', 'isBest'];
 
   public static function boot()
   {
@@ -68,5 +68,26 @@ class Reply extends Model
       '<a href="/profiles/$1">$0</a>',
       $body
     );
+  }
+
+  /**
+   * Determine if the current reply is marked as the best.
+   *
+   * @return bool
+   */
+  public function isBest()
+  {
+    return $this->thread->best_reply_id == $this->id;
+  }
+
+  /**
+   *
+   * Determine if the current reply is marked as the best.
+   *
+   * @return bool
+   */
+  public function getIsBestAttribute()
+  {
+    return $this->isBest();
   }
 }

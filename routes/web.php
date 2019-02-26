@@ -26,7 +26,10 @@ Route::post('/threads/{category}/{thread}/replies', 'ReplyController@store');
 Route::post('/threads/{category}/{thread}/subscriptions', 'ThreadSubscriptionController@store')->middleware('auth');
 Route::delete('/threads/{category}/{thread}/subscriptions', 'ThreadSubscriptionController@destroy')->middleware('auth');
 
-Route::delete('/replies/{reply}', 'ReplyController@destroy');
+Route::delete('/replies/{reply}', 'ReplyController@destroy')->name('replies.destroy');
+
+Route::post('/replies/{reply}/best', 'BestRepliesController@store')->name('best-replies.store');
+
 Route::patch('/replies/{reply}', 'ReplyController@update');
 Route::post('/replies/{reply}/favorites', 'FavoriteController@store');
 Route::delete('/replies/{reply}/favorites', 'FavoriteController@destroy');
