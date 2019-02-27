@@ -5,7 +5,12 @@
       <hr>
     </div>
     <paginator :dataSet="dataSet" @changed="fetch"></paginator>
-    <NewReplyComponent @created="add"></NewReplyComponent>
+
+    <p v-if="$parent.locked">
+      This thread has been locked. No more replies are allowed.
+    </p>
+
+    <NewReplyComponent @created="add" v-else></NewReplyComponent>
   </div>
 </template>
 

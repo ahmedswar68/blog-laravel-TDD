@@ -28,6 +28,11 @@ $factory->state(App\User::class, 'unconfirmed', function () {
     'confirmed' => false
   ];
 });
+$factory->state(App\User::class, 'administrator', function () {
+  return [
+    'name' => 'JohnDoe'
+  ];
+});
 $factory->define(App\Category::class, function (Faker $faker) {
   $name = $faker->word;
   return [
@@ -47,7 +52,8 @@ $factory->define(App\Thread::class, function (Faker $faker) {
       return factory('App\Category')->create()->id;
     },
     'visits' => 0,
-    'slug' => str_slug($title)
+    'slug' => str_slug($title),
+    'locked' => false
   ];
 });
 $factory->define(App\Reply::class, function (Faker $faker) {

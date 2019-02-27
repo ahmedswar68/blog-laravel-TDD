@@ -22,7 +22,7 @@ class RegistrationTest extends TestCase
       'password' => 'foobar',
       'password_confirmation' => 'foobar'
     ]);
-    Mail::assertSent(PleaseConfirmYourEmail::class);
+    Mail::assertQueued(PleaseConfirmYourEmail::class);
   }
 
 
