@@ -65,7 +65,7 @@ class ThreadController extends Controller
       'title' => 'required',
       'description' => 'required',
       'category_id' => 'required|exists:categories,id',
-//      'g-recaptcha-response' => ['required', $recaptcha]
+      'g-recaptcha-response' => ['required', $recaptcha]
     ]);
 
     $thread = Thread::create([

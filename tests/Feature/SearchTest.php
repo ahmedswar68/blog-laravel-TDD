@@ -15,7 +15,7 @@ class SearchTest extends TestCase
   {
     config(['scout.driver' => 'algolia']);
     create('App\Thread', [], 2);
-    create('App\Thread', ['body' => 'A thread with the foobar term.'], 2);
+    create('App\Thread', ['description' => 'A thread with the foobar term.'], 2);
     do {
       // Account for latency.
       sleep(.25);
