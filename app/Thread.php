@@ -7,10 +7,11 @@ use App\Filters\ThreadFilters;
 use App\Notifications\ThreadWasUpdated;
 use App\Traits\RecordActivities;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
-  use RecordActivities;
+  use RecordActivities, Searchable;
   protected $guarded = [];
   protected $with = ['creator', 'category'];
   protected $appends = ['isSubscribedTo'];

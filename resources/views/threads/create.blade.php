@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section ('head')
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+@endsection
 @section('content')
   <div class="container">
     <div class="row justify-content-center">
@@ -15,7 +17,7 @@
                   <option>Choose Category</option>
                   @foreach ($categories as $category)
                     <option
-                      value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                   @endforeach
                 </select>
               </div>
@@ -29,6 +31,9 @@
                           class="form-control" rows="5" placeholder="Say something">
                   {{old('body')}}
                 </textarea>
+              </div>
+              <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LfdOpQUAAAAADnMTDchMC9w47voMig2hJkSmDRN"></div>
               </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-default"> Post</button>

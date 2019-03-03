@@ -3343,6 +3343,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -3596,15 +3601,48 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['initialRepliesCount'],
+  props: ['thread'],
   components: {
     Replies: _components_RepliesComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     SubscribeButton: _components_SubscribeButtonComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      repliesCount: this.initialRepliesCount
+      repliesCount: this.thread.replies_count,
+      locked: this.thread.locked,
+      title: this.thread.title,
+      body: this.thread.description,
+      form: {},
+      editing: false
     };
+  },
+  created: function created() {
+    this.resetForm();
+  },
+  methods: {
+    toggleLock: function toggleLock() {
+      var uri = "/locked-threads/".concat(this.thread.slug);
+      axios[this.locked ? 'delete' : 'post'](uri);
+      this.locked = !this.locked;
+    },
+    update: function update() {
+      var _this = this;
+
+      var uri = "/threads/".concat(this.thread.channel.slug, "/").concat(this.thread.slug);
+      axios.patch(uri, this.form).then(function () {
+        _this.editing = false;
+        _this.title = _this.form.title;
+        _this.body = _this.form.body;
+        flash('Your thread has been updated.');
+      });
+    },
+    resetForm: function resetForm() {
+      this.form = {
+        title: this.thread.title,
+        body: this.thread.body
+      };
+      this.editing = false;
+    }
   }
 });
 
@@ -57510,7 +57548,13 @@ var render = function() {
         on: { changed: _vm.fetch }
       }),
       _vm._v(" "),
-      _c("NewReplyComponent", { on: { created: _vm.add } })
+      _vm.$parent.locked
+        ? _c("p", [
+            _vm._v(
+              "\n    This thread has been locked. No more replies are allowed.\n  "
+            )
+          ])
+        : _c("NewReplyComponent", { on: { created: _vm.add } })
     ],
     2
   )
@@ -69840,6 +69884,9 @@ module.exports = {
   owns: function owns(model) {
     var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'user_id';
     return model[prop] === user.id;
+  },
+  isAdmin: function isAdmin() {
+    return ['JohnDoe', 'JaneDoe'].includes(user.name);
   }
 };
 

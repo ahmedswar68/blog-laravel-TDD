@@ -6,7 +6,7 @@ use App\Thread;
 use App\Category;
 use App\Filters\ThreadFilters;
 use App\Trending;
-use Illuminate\Http\Request;
+use App\Rules\Recaptcha;
 
 class ThreadController extends Controller
 {
@@ -54,17 +54,18 @@ class ThreadController extends Controller
   }
 
   /**
-   * @param Request $request
-   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+   * @param Recaptcha $recaptcha
+   * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
    * @throws \Illuminate\Validation\ValidationException
    */
-  public function store(Request $request)
+  public function store(Recaptcha $recaptcha)
   {
 
-    $this->validate($request, [
+    request()->validate([
       'title' => 'required',
       'description' => 'required',
       'category_id' => 'required|exists:categories,id',
+//      'g-recaptcha-response' => ['required', $recaptcha]
     ]);
 
     $thread = Thread::create([
@@ -106,14 +107,21 @@ class ThreadController extends Controller
   }
 
   /**
-   * Update the specified resource in storage.
-   * @param  \Illuminate\Http\Request $request
-   * @param  \App\Thread $thread
-   * @return \Illuminate\Http\Response
+   * @param $category
+   * @param Thread $thread
+   * @return Thread
+   * @throws \Illuminate\Auth\Access\AuthorizationException
    */
-  public function update(Request $request, Thread $thread)
+  public function update($category, Thread $thread)
   {
-    //
+
+    $this->authorize('update', $thread);
+
+    $thread->update(request()->validate([
+      'title' => 'required',
+      'description' => 'required'
+    ]));
+    return $thread;
   }
 
   /**
