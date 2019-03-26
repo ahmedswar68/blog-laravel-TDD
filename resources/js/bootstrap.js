@@ -1,5 +1,5 @@
 window._ = require('lodash');
-
+import InstantSearch from 'vue-instantsearch';
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -14,10 +14,11 @@ try {
 } catch (e) {
 }
 window.Vue = require('vue');
+Vue.use(InstantSearch);
 let authorizations = require('./authorizations');
 
 Vue.prototype.authorize = function (...params) {
-  if (! window.App.signedIn) return false;
+  if (!window.App.signedIn) return false;
 
   if (typeof params[0] === 'string') {
     return authorizations[params[0]](params[1]);
