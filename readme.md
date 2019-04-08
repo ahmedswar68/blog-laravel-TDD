@@ -1,3 +1,19 @@
+## About Project Features
+<ul>
+    <li>Thread Crud Functions</li>
+    <li>Reply Crud Functions</li>
+    <li>User can filter threads</li>
+    <li>User can search in threads </li>
+    <li>user can see most viewed threads using redis</li>
+    <li>user can favorite a reply</li>
+    <li>user can subscribe threads </li>
+    <li>user can get Notification for subscribed threads or when another user mention him</li>
+    <li>validation for spam thread and replies like "kkkkkkkkkkkkk"</li>
+    <li>user has his own profile</li>
+    <li>user can mark a reply as a best reply </li>
+    <li>Administrator May Lock Any Thread</li>
+    <li>Recaptcha</li>
+</ul>
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
@@ -6,6 +22,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
+
 
 ## About Laravel
 
